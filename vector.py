@@ -1,3 +1,5 @@
+import math
+
 class Vector(object):
     """docstring for Vector."""
     def __init__(self, coordinates):
@@ -33,3 +35,12 @@ class Vector(object):
     def mul(self, v):
         new_coordinates = [v * x for x in self.coordinates]
         return Vector(new_coordinates);
+
+    def magn(self):
+        v = 0
+        for x in self.coordinates:
+            v += x*x
+        return math.sqrt(v)
+
+    def norm(self):
+        return self.mul(1./self.magn())
