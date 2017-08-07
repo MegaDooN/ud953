@@ -32,6 +32,10 @@ class Vector(object):
         new_coordinates = [x-y for x,y in zip(self.coordinates, v.coordinates)]
         return Vector(new_coordinates);
 
+    def __mul__(self, v):
+        new_coordinates = [x*y for x,y in zip(self.coordinates, v.coordinates)]
+        return sum(new_coordinates);
+
     def mul(self, v):
         new_coordinates = [v * x for x in self.coordinates]
         return Vector(new_coordinates);
