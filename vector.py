@@ -1,4 +1,4 @@
-import math
+import math, numpy
 
 class Vector(object):
     """docstring for Vector."""
@@ -48,3 +48,19 @@ class Vector(object):
 
     def norm(self):
         return self.mul(1./self.magn())
+
+    def angle_with(self, v, in_radians = True):
+        angle_in_radians = numpy.arccos( (self * v) / (self.magn() * v.magn()) )
+        return angle_in_radians if in_radians else angle_in_radians / numpy.pi * 180.
+
+    def is_zero(self, tolerance = 1e-10):
+        return self.magn() < tolerance
+
+    def is_orthogonal_to(self, v, tolerance = 1e-10):
+        return numpy.abs(self * v) < tolerance
+
+    def is_parallel_to(self, v):
+        return (self.is_zero() or
+                v.is_zero() or
+                0 == self.angle_with(v) or
+                numpy.pi == self.angle_with(v))

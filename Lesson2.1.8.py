@@ -10,9 +10,8 @@ print v3*v4
 
 v5 = vector.Vector([3.183, -7.627])
 v6 = vector.Vector([-2.668, 5.319])
-print numpy.arccos( v5 * v6 / ( v5.magn() * v6.magn() ) )
+print v5.angle_with(v6)
 
 v7 = vector.Vector([7.35, 0.221, 5.188])
 v8 = vector.Vector([2.751, 8.259, 3.985])
-print numpy.arccos( v7 * v8 / ( v7.magn() * v8.magn() ) ) / numpy.pi * 180
-
+print v7.angle_with(v8, False)
