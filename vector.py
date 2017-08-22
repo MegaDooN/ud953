@@ -36,6 +36,12 @@ class Vector(object):
         new_coordinates = [x*y for x,y in zip(self.coordinates, v.coordinates)]
         return sum(new_coordinates);
 
+    def __iter__(self):
+            return iter(self.coordinates)
+
+    def __getitem__(self,index):
+            return self.coordinates[index]
+
     # Multiply vector by scalar
     def mul(self, v):
         new_coordinates = [v * x for x in self.coordinates]
@@ -51,7 +57,13 @@ class Vector(object):
         return self.mul(1./self.magn())
 
     def angle_with(self, v, in_radians = True):
-        angle_in_radians = numpy.arccos( (self * v) / (self.magn() * v.magn()) )
+        tolerance = 1e-10
+        dot_product = (self * v) / (self.magn() * v.magn())
+
+        if abs(dot_product) - 1.0 < tolerance  and abs(dot_product) > 1.0:
+            dot_product = 1.0 if dot_product > 0 else -1.0
+
+        angle_in_radians = numpy.arccos(dot_product)
         return angle_in_radians if in_radians else angle_in_radians / numpy.pi * 180.
 
     def is_zero(self, tolerance = 1e-10):
