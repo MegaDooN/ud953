@@ -36,6 +36,7 @@ class Vector(object):
         new_coordinates = [x*y for x,y in zip(self.coordinates, v.coordinates)]
         return sum(new_coordinates);
 
+    # Multiply vector by scalar
     def mul(self, v):
         new_coordinates = [v * x for x in self.coordinates]
         return Vector(new_coordinates);
@@ -64,3 +65,33 @@ class Vector(object):
                 v.is_zero() or
                 0 == self.angle_with(v) or
                 numpy.pi == self.angle_with(v))
+
+    # parallel projection on vector
+    def proj_parallel(self, v):
+        return v.norm().mul((self * v.norm())) # (self * v) * v
+
+    # orthogonal projection of vector
+    def proj_orthogonal(self, v):
+        return self - self.proj_parallel(v)
+
+    # cross vectors
+    def cross(self, v):
+        x1, y1, z1  = self.coordinates
+        x2, y2, z2 = v.coordinates
+
+        x3 = y1 * z2 - y2 * z1
+        y3 = - (x1 * z2 - x2 * z1)
+        z3 = x1 * y2 - x2 * y1
+
+        return Vector([x3, y3, z3])
+
+
+    # area of parallelogram
+    def area_parallelogram(self, v):
+        cross_product = self.cross(v)
+        return cross_product.magn()
+
+
+    # area of trianle
+    def area_triangle(self, v):
+        return 0.5 * self.area_parallelogram(v)
