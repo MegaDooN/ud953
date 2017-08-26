@@ -60,7 +60,7 @@ class Vector(object):
         tolerance = 1e-10
         dot_product = (self * v) / (self.magn() * v.magn())
 
-        if abs(dot_product) - 1.0 < tolerance  and abs(dot_product) > 1.0:
+        if abs(abs(dot_product) - 1.0) < tolerance:
             dot_product = 1.0 if dot_product > 0 else -1.0
 
         angle_in_radians = numpy.arccos(dot_product)
